@@ -157,9 +157,16 @@ LOGGING = {
     }
 }
 
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'dgo94hg456ane',
+    'HOST': 'ec2-23-23-211-161.compute-1.amazonaws.com',
+    'PORT': 5432,
+    'USER': 'objwkqtmvebtzt',
+    'PASSWORD': 't6UpfgUGBBvSnxE9Qo1DE5_MMy'
+  }
+}
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
