@@ -1,0 +1,42 @@
+<html>
+<body>
+<form class="form-horizontal" action="" method="POST">{% csrf_token %}
+    <fieldset>
+        {% if form.errors %}
+            <div class="alert alert-error alert-block">
+                <p>Please correct the errors</p>
+            </div>
+        {% endif %}
+        <div class="control-group {% if form.username.errors %}error{% endif %}">
+            <label class="control-label">{{ form.username.label_tag }}</label>
+            <div class="controls">
+                {{ form.username }}
+                <p class="help-block">{{ form.username.help_text}}</p>
+                <span class="help-inline">{{ form.username.errors }}</span>
+            </div>
+        </div>
+        <div class="control-group {% if form.password1.errors %}error{% endif %}">
+            <label class="control-label">{{ form.password1.label_tag }}</label>
+            <div class="controls">
+                {{ form.password1 }}
+                <p class="help-block">{{ form.password1.help_text}}</p>
+                <span class="help-inline">{{ form.password1.errors }}</span>
+            </div>
+        </div>
+        <div class="control-group {% if form.password2.errors %}error{% endif %}">
+            <label class="control-label">{{ form.password2.label_tag }}</label>
+            <div class="controls">
+                {{ form.password2 }}
+                <p class="help-block">{{ form.password2.help_text}}</p>
+                <span class="help-inline">{{ form.password2.errors }}</span>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Create the account</button>
+            <a class="btn" href="/">Cancel</a>
+        </div>
+    </fieldset>
+</form>
+<p>Already have an account? <a href="/accounts/login?next=/">Log In</a></p>
+</body>
+</html>
