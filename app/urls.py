@@ -20,5 +20,5 @@ urlpatterns = patterns('',
     url(r'^accounts/logout', logout),
     url(r'^accounts/register', register),
 
-    url(r'^user/', user_home),
+    url(r'^user/(\d+)', user_home),
 )
