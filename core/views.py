@@ -4,7 +4,8 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
+from core.models import *
 
 def login(request):
     if request.method == 'POST':
@@ -34,4 +35,17 @@ def register(request):
 @login_required  
 def user_home(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    return HttpResponse('Hello %s' % user.id)
+    if request.method == "POST":
+        new_meow_text = request.POST.get('new_meow')
+        new_meow = Meow(text=new_meow_text,
+                        user=user)
+        new_meow.save()
+        return redirect('/user/%s' % user.id)
+    else:
+        meows = user.meow_set.all()
+        context = {
+            'meows': meows,
+            'request': request
+        }
+        context.update(csrf(request))
+        return render_to_response('user_home.html', context)

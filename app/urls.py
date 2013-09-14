@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import logout
 from core.views import *
 
 # Uncomment the next two lines to enable the admin:
