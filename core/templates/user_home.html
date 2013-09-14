@@ -1,0 +1,42 @@
+<html>
+<body>
+    {% if same_user %}
+    <form action="/meow/add" method="POST">{% csrf_token %}
+        <textarea name="new_meow" id="new_meow" rows="4" cols="50" maxlength="160">
+        </textarea>
+        <input type="submit" value="Meow!">
+    </form>
+    {% else %}
+        <form action="/user/subscribe/{{user_id}}" method="POST">{% csrf_token %}
+            <input type="submit" value="Follow Me">
+        </form>
+    {% endif %}
+
+    <div>
+        {% for meow in meows %}
+            <div>
+                <p>{{meow.user.username}} </p>
+                <p>{{meow.text}}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+    <h3>Followers</h3>
+        {% for follower in followers %}
+            <div>
+                <p>{{follower.user.username}}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+    <h3>Following</h3>
+        {% for follower in following %}
+            <div>
+                <p>{{follower.user.username}}</p>
+            </div>
+        {% endfor %}
+    </div>
+    
+
+</body>
+</html>
