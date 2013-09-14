@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'app.views.home', name='home'),
+    url(r'^$', login),
     # url(r'^app/', include('app.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -24,5 +24,4 @@ urlpatterns = patterns('',
 
     url(r'^meow/add', add_meow),
     url(r'^user/subscribe/(\d+)', subscribe_user)
-    
 )
