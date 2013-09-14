@@ -43,15 +43,37 @@ def add_meow(request):
         new_meow.save()
         return redirect('/user/%s' % user.id)
     raise Http404
-   
+
+@login_required
+def subscribe_user(request, user_id):
+    if request.method == "POST":
+        logged_user = request.user
+        user = get_object_or_404(User, pk=user_id)
+        user_prof = user.userprofile
+        user_prof.followers.add(logged_user.userprofile)
+        user_prof.save()
+        return redirect('/user/%s' % user.id)   
+    raise Http404
+
 @login_required  
 def user_home(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    if request.method == "GET":
-        meows = user.meow_set.all()
-        context = {
-            'meows': meows,
-            'request': request
-        }
-        context.update(csrf(request))
-        return render_to_response('user_home.html', context)
+    logged_user = request.user
+    meows = []
+    if logged_user == user:   
+        same_user = True
+    else :
+        followers = []
+        same_user = False
+
+    meows.extend(user.meow_set.all())
+    context = {
+        'meows': meows,
+        'user_id': user_id,
+        'request': request,
+        'same_user': same_user,
+        'followers': user.userprofile.followers.all(),
+        'following': user.userprofile.userprofile_set.all()
+    }
+    context.update(csrf(request))
+    return render_to_response('user_home.html', context)
