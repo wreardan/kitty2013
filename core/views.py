@@ -60,20 +60,25 @@ def user_home(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     logged_user = request.user
     meows = []
+    followers = user.userprofile.followers.all()
+    following = user.userprofile.userprofile_set.all()
     if logged_user == user:   
         same_user = True
+        for f in following:
+            meows.extend(f.user.meow_set.all())
     else :
-        followers = []
         same_user = False
 
     meows.extend(user.meow_set.all())
+    meows.sort(key=lambda m: m.ts)
+
     context = {
         'meows': meows,
         'user_id': user_id,
         'request': request,
         'same_user': same_user,
-        'followers': user.userprofile.followers.all(),
-        'following': user.userprofile.userprofile_set.all()
+        'followers': followers,
+        'following': following
     }
     context.update(csrf(request))
     return render_to_response('user_home.html', context)
