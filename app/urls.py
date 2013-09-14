@@ -21,4 +21,7 @@ urlpatterns = patterns('',
     url(r'^accounts/register', register),
 
     url(r'^user/(\d+)', user_home),
+
+    url(r'^meow/add', add_meow),
+    
 )

@@ -1,9 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from core.models import *
 
@@ -24,6 +23,8 @@ def register(request):
        if form.is_valid():
            new_user = form.save()
            new_user.save()
+           user_prof = UserProfile(user=new_user)
+           user_prof.save()
            return HttpResponseRedirect('/accounts/login')
    else:
        form = UserCreationForm()
@@ -32,16 +33,21 @@ def register(request):
    context.update(csrf(request))
    return render_to_response('registration/register.html', context)
    
-@login_required  
-def user_home(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
+@login_required
+def add_meow(request):
     if request.method == "POST":
+        user = request.user
         new_meow_text = request.POST.get('new_meow')
         new_meow = Meow(text=new_meow_text,
                         user=user)
         new_meow.save()
         return redirect('/user/%s' % user.id)
-    else:
+    raise Http404
+   
+@login_required  
+def user_home(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    if request.method == "GET":
         meows = user.meow_set.all()
         context = {
             'meows': meows,
