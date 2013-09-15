@@ -1,42 +1,72 @@
-<html>
-<body>
-    {% if same_user %}
-    <form action="/meow/add" method="POST">{% csrf_token %}
-        <textarea name="new_meow" id="new_meow" rows="4" cols="50" maxlength="160">
-        </textarea>
-        <input type="submit" value="Meow!">
-    </form>
-    {% else %}
-        <form action="/user/subscribe/{{user_id}}" method="POST">{% csrf_token %}
-            <input type="submit" value="Follow Me">
-        </form>
-    {% endif %}
+{% extends 'main.html' %}
+{% block title %}Kitty {{ meow.user.username }} {% endblock %}
+{% block css %}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+    </style>
+{% endblock %}
 
-    <div>
-        {% for meow in meows %}
-            <div>
-                <p>{{meow.user.username}} </p>
-                <p>{{meow.text}}</p>
-            </div>
-        {% endfor %}
-    </div>
-    <div>
-    <h3>Followers</h3>
-        {% for follower in followers %}
-            <div>
-                <p>{{follower.user.username}}</p>
-            </div>
-        {% endfor %}
-    </div>
-    <div>
-    <h3>Following</h3>
-        {% for follower in following %}
-            <div>
-                <p>{{follower.user.username}}</p>
-            </div>
-        {% endfor %}
-    </div>
-    
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <h3>Followers</h3>
+                    <table class="table">
+                    {% for follower in followers %}
+                        <tr>
+                            <td>
+                            <a href="/user/{{follower.user.id}}">{{follower.user.username}}</a>
+                            </td>                       
+                        </tr>
+                    {% endfor %}
+                    </table>
 
-</body>
-</html>
+                <h3>Following</h3>
+                    <table class="table">
+                    {% for follower in following %}
+                        <tr>
+                            <td>
+                            <a href="/user/{{follower.user.id}}">{{follower.user.username}}</a>
+                            </td>                       
+                        </tr>
+                    {% endfor %}
+                    </table>
+            </div>
+            <div class="span8">            
+                {% if same_user %}
+                <form action="/meow/add" method="POST">{% csrf_token %}
+                    <textarea name="new_meow" id="new_meow" rows="4" cols="500" maxlength="160"></textarea>
+                    <input class="btn btn-primary btn-medium" type="submit" value="Meow!">
+                </form>
+                {% else %}
+                    <form action="/user/subscribe/{{user_id}}" method="POST">{% csrf_token %}
+                        <input type="submit" value="Follow Me">
+                    </form>
+                {% endif %}
+            
+                <table class="table table-striped">
+                <div class="media">
+                    {% for meow in meows %}
+                        <tr>
+                            <td>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    <a href="/user/{{meow.user.id}}">{{meow.user.username}}</a>
+                                </h4>
+                                <p>{{meow.text}}</p>
+                                <p>{{meow.ts}}</p>
+                            </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
