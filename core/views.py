@@ -70,8 +70,8 @@ def user_home(request, user_id):
         same_user = False
 
     meows.extend(user.meow_set.all())
-    meows.sort(key=lambda m: m.ts)
-
+    meows.sort(key=lambda m: m.ts, reversed=True)
+    
     context = {
         'meows': meows,
         'user_id': user_id,
