@@ -1,6 +1,15 @@
-<html>
-<body>
+{% extends 'main.html' %}
+{% block title %}Kitty Registration{% endblock %}
+{% block css %}
+    <style type="text/css">
+        .form-horizontal { margin: 50px auto 200px; }
+        .form-signin-heading {margin-left: 200px}
+    </style>
+{% endblock %}
+{% block content %}
+
 <form class="form-horizontal" action="" method="POST">{% csrf_token %}
+    <h2 class="form-signin-heading">Please Register</h2><br />
     <fieldset>
         {% if form.errors %}
             <div class="alert alert-error alert-block">
@@ -40,3 +49,5 @@
 <p>Already have an account? <a href="/accounts/login?next=/">Log In</a></p>
 </body>
 </html>
+
+{% endblock %}

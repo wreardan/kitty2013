@@ -20,13 +20,14 @@
                     <a class="brand" href="#">Kitty.com</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="/">Home</a></li>
                             <li></li>
                         </ul>
                         <ul class="nav pull-right">
 {% if request.user.is_authenticated %}
-                            <li><a href="#Logout">Logout</a></li>
+                            <li><a href="/accounts/logout">Logout</a></li>
 {% else %}
+                            <li><a href="/accounts/register">Register</a></li>
                             <li><a href="/accounts/login">Login</a></li>
 {% endif %}
                         </ul>
