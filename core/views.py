@@ -54,12 +54,25 @@ def subscribe_user(request, user_id):
         user_prof.save()
         return redirect('/user/%s' % user.id)   
     raise Http404
+    
+@login_required
+def unsubscribe_user(request, user_id):
+    if request.method == "POST":
+        logged_user = request.user
+        user = get_object_or_404(User, pk=user_id)
+        user_prof = user.userprofile
+        user_prof.followers.remove(logged_user.userprofile)
+        user_prof.save()
+        return redirect('/user/%s' % user.id)   
+    raise Http404
 
 @login_required  
 def user_home(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     logged_user = request.user
     meows = []
+    am_following = False
+    
     followers = user.userprofile.followers.all()
     following = user.userprofile.userprofile_set.all()
     if logged_user == user:   
@@ -68,9 +81,11 @@ def user_home(request, user_id):
             meows.extend(f.user.meow_set.all())
     else :
         same_user = False
+        if logged_user.userprofile in followers:
+            am_following = True
 
     meows.extend(user.meow_set.all())
-    meows.sort(key=lambda m: m.ts, reversed=True)
+    meows.sort(key=lambda m: m.ts, reverse=True)
     
     context = {
         'meows': meows,
@@ -78,7 +93,8 @@ def user_home(request, user_id):
         'request': request,
         'same_user': same_user,
         'followers': followers,
-        'following': following
+        'following': following,
+        'am_following': am_following
     }
     context.update(csrf(request))
     return render_to_response('user_home.html', context)

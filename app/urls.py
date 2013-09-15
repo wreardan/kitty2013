@@ -23,5 +23,6 @@ urlpatterns = patterns('',
     url(r'^user/(\d+)', user_home),
 
     url(r'^meow/add', add_meow),
-    url(r'^user/subscribe/(\d+)', subscribe_user)
+    url(r'^user/subscribe/(\d+)', subscribe_user),
+    url(r'^user/unsubscribe/(\d+)', unsubscribe_user)
 )
