@@ -45,6 +45,17 @@ def add_meow(request):
     raise Http404
 
 @login_required
+def remove_meow(request, meow_id):
+    if request.method == "POST":
+        user = request.user
+        meow = get_object_or_404(Meow, pk=meow_id)
+        if user != meow.user:
+            raise Http404
+        meow.delete()
+        return redirect('/user/%s' % user.id)
+    raise Http404
+
+@login_required
 def subscribe_user(request, user_id):
     if request.method == "POST":
         logged_user = request.user
@@ -90,6 +101,7 @@ def user_home(request, user_id):
     context = {
         'meows': meows,
         'user_id': user_id,
+        'logged_user': logged_user,
         'request': request,
         'same_user': same_user,
         'followers': followers,

@@ -62,8 +62,16 @@
                                     <a href="/user/{{meow.user.id}}">{{meow.user.username}}</a>
                                 </h4>
                                 <p>{{meow.text}}</p>
-                                <p>{{meow.ts}}</p>
+                                <p>{{meow.ts}} </p>
                             </div>
+                            </td>
+                            <td>
+                                
+                                {% if same_user and meow.user == logged_user %}
+                                <form class="form-inline" action="/meow/remove/{{meow.id}}" method="POST">{% csrf_token %}
+                                       <button title="Delete" class="pull-right btn btn-mini" type="submit">X</button>
+                                </form>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
