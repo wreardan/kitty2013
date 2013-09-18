@@ -17,10 +17,10 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="#">DasProject2</a>
+                    <a class="brand" href="/user/{{ request.user.id }}">DasProject2</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="/">Home</a></li>
+                            <li class="active"><a href="/user/{{ request.user.id }}">Home</a></li>
                             <li></li>
                         </ul>
                         <ul class="nav pull-right">
