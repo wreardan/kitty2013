@@ -14,15 +14,34 @@ SITE_ROOT = os.path.realpath(
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+    'local': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'kitty2013.db',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
-    }
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'd7rltvbjt2l5hu',                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': 'mtemlffsxvjqmt',
+        'PASSWORD': 'ofWte7yORPfXaGtuzI0gWwbf6p',
+        'HOST': 'ec2-107-21-120-102.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '5432',                      # Set to empty string for default.
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+    #     'NAME': 'cs638project2',                      # Or path to database file if using sqlite3.
+    #     # The following settings are not used with sqlite3:
+    #     'USER': 'cs638project2',
+    #     'PASSWORD': 'Startups1!',
+    #     'HOST': 'cs638project2.db.7381909.hostedresource.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+    #     'PORT': '',                      # Set to empty string for default.
+    # },
+
 }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -162,16 +181,6 @@ LOGGING = {
     }
 }
 
-DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'dgo94hg456ane',
-    'HOST': 'ec2-23-23-211-161.compute-1.amazonaws.com',
-    'PORT': 5432,
-    'USER': 'objwkqtmvebtzt',
-    'PASSWORD': 't6UpfgUGBBvSnxE9Qo1DE5_MMy'
-  }
-}
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
