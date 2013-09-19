@@ -5,7 +5,7 @@ class Meow(models.Model):
     text = models.CharField(max_length=160)
     user = models.ForeignKey(User)
     ts = models.DateTimeField(auto_now_add=True)
-    #image_url = models.URLField()
+    image_url = models.URLField()
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
