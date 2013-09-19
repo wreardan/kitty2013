@@ -5,6 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from core.models import *
+from app import settings
+
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
+s3 = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_ACCESS_SECRET)
+bucket = s3.create_bucket(settings.AWS_BUCKET_NAME)
+
 
 def login(request):
     if request.method == 'POST':
@@ -36,6 +43,7 @@ def register(request):
 @login_required
 def add_meow(request):
     if request.method == "POST":
+        key = Key(bucket)
         user = request.user
         new_meow_text = request.POST.get('new_meow')
         new_meow = Meow(text=new_meow_text,

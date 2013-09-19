@@ -4,6 +4,12 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+
+AWS_ACCESS_KEY_ID = 'AKIAI6DM5QX45N5RETYA'
+AWS_ACCESS_SECRET = '05YBb1+bSHQm23DvjGYVeLIM91LjEBH7K/pVEjFN'
+AWS_BUCKET_NAME = 'kitty2013'
+
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
