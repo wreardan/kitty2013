@@ -21,6 +21,7 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="active"><a href="/user/{{ request.user.id }}">Home</a></li>
+                            <li class="active"><a href="/random/">Random</a></li>
                             <li></li>
                         </ul>
                         <ul class="nav pull-right">
@@ -41,5 +42,6 @@
         </div>
         <script src="/static/js/jquery.min.js"></script>
         <script src="/static/js/bootstrap.min.js"></script>
+        {% block js_last %}{% endblock %}
     </body>
 </html>
