@@ -49,13 +49,15 @@ def add_meow(request):
         key = Key(bucket)
         keyname = str(int(uuid.uuid4()))[:10] + newfile.name
         key.key = keyname
-        #key.make_public()
         key.set_contents_from_string(newfile.read())
+        key.make_public()
+            
+        url = 'https://s3.amazonaws.com/kitty2013/' + keyname
 
         user = request.user
         new_meow_text = request.POST.get('new_meow')
         new_meow = Meow(text=new_meow_text,
-                        user=user)
+                        user=user, image_url=url)
         new_meow.save()
         return redirect('/user/%s' % user.id)
     raise Http404
