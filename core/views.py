@@ -7,10 +7,12 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from core.models import *
 from app import settings
 
+import uuid
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 s3 = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_ACCESS_SECRET)
 bucket = s3.create_bucket(settings.AWS_BUCKET_NAME)
+bucket.set_acl('public-read')
 
 
 def login(request):
@@ -43,7 +45,13 @@ def register(request):
 @login_required
 def add_meow(request):
     if request.method == "POST":
+        newfile = request.FILES.get('new_meow_image')
         key = Key(bucket)
+        keyname = str(int(uuid.uuid4()))[:10] + newfile.name
+        key.key = keyname
+        #key.make_public()
+        key.set_contents_from_string(newfile.read())
+
         user = request.user
         new_meow_text = request.POST.get('new_meow')
         new_meow = Meow(text=new_meow_text,
