@@ -68,32 +68,26 @@
                         <input type="submit" value="Follow Me">
                     </form>
                 {% endif %}
-            
-                <table class="table table-striped">
+
                 <div class="media">
 
 
                     {% for meow in meows %}
-                        <tr>
-                            <td>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    <a href="/user/{{meow.user.id}}">{{meow.user.username}}</a>
-                                </h4>
-                                <p>{{meow.text}}</p>
-                                <p>{{meow.ts}} </p>
-                                <img src="{{meow.image_url}}" />
+                    <div class="span3">
+                        <div class="media-body">
+                            <img src="{{meow.image_url}}" />
+                            <div class="caption">{{meow.text}}
+                                <a href="/user/{{meow.user.id}}">{{meow.user.username}}</a>
+                                {{ meow.ts }}
                             </div>
-                            </td>
-                            <td>
-                                
-                                {% if same_user and meow.user == logged_user %}
-                                <form class="form-inline" action="/meow/remove/{{meow.id}}" method="POST">{% csrf_token %}
-                                       <button title="Delete" class="pull-right btn btn-mini" type="submit">X</button>
-                                </form>
-                                {% endif %}
-                            </td>
-                        </tr>
+                        </div>
+
+                        {% if same_user and meow.user == logged_user %}
+                        <form class="form-inline" action="/meow/remove/{{meow.id}}" method="POST">{% csrf_token %}
+                               <button title="Delete" class="pull-right btn btn-mini" type="submit">X</button>
+                        </form>
+                        {% endif %}
+                    </div>
                     {% endfor %}
                 </div>
                 </table>
