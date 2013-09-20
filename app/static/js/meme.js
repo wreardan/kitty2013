@@ -47,6 +47,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
+function meme_me() {
+    var preview = document.getElementById('preview');
+    var child = preview.children[0];
+    if(!child)
+        return;
+    var img = new Image();
+    img.src = child.src;
+    var can = document.getElementById('canvas');
+    Meme(img, can, 'you ignore my calls', 'I ignore your screams of mercy');
+
+    can.style.display="block";
+    preview.style.display="none";
+}
+
 window.Meme = function(image, canvas, top, bottom) {
 
 	/*

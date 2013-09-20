@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
@@ -34,6 +35,10 @@ def register(request):
            new_user.save()
            user_prof = UserProfile(user=new_user)
            user_prof.save()
+           new_user = authenticate(username=request.POST['username'],
+                                    password=request.POST['password'])
+           login(request, new_user)
+           return HttpResponseRedirect("/dashboard/")
            return HttpResponseRedirect('/accounts/login')
    else:
        form = UserCreationForm()
