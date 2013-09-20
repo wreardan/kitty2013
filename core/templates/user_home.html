@@ -84,9 +84,14 @@
 
                         {% if same_user and meow.user == logged_user %}
                         <form class="form-inline" action="/meow/remove/{{meow.id}}" method="POST">{% csrf_token %}
-                               <button title="Delete" class="pull-right btn btn-mini" type="submit">X</button>
+                            <button title="Delete" class="pull-right btn btn-mini" type="submit">X</button>
                         </form>
                         {% endif %}
+                        <form class="form-inline" action="/meow/like/{{meow.id}}" method="POST">{% csrf_token %}
+                            <button title="Like" class="btn btn-primary" type="submit">
+                                <i class="icon-white icon-thumbs-up"></i> Like
+                            </button>
+                        </form>
                     </div>
                     {% endfor %}
                 </div>

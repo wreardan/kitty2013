@@ -74,6 +74,15 @@ def remove_meow(request, meow_id):
     raise Http404
 
 @login_required
+def like_meow(request, meow_id):
+    if request.method == "POST":
+        meow = get_object_or_404(Meow, pk=meow_id)
+        userprof = request.user.userprofile
+        userprof.likes.add(meow)
+        return redirect('/user/%s' % request.user.id)
+    raise Http404
+
+@login_required
 def subscribe_user(request, user_id):
     if request.method == "POST":
         logged_user = request.user
