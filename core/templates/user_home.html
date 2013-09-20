@@ -17,15 +17,15 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="span10">
+            <div class="span10" style="margin-right:-2px; border-right: 1px solid #ccc;">
                 {% if same_user %}
                 {% elif am_following %}
                         <form action="/user/unsubscribe/{{user_id}}" method="POST">{% csrf_token %}
-                        <input type="submit" value="Unfollow">
+                        <input type="submit" value="Friend Me">
                     </form>
                 {% else %}
                     <form action="/user/subscribe/{{user_id}}" method="POST">{% csrf_token %}
-                        <input type="submit" value="Follow Me">
+                        <input type="submit" value="Un-Friend Me">
                     </form>
                 {% endif %}
 
