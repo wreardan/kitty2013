@@ -10,4 +10,4 @@ class Meow(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     followers = models.ManyToManyField('self', symmetrical=False, blank=True)
-    likes = models.ManyToManyField(Meow, symmetrical=False, blank=True)
+    likes = models.ManyToManyField(Meow)
