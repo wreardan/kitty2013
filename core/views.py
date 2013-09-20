@@ -106,6 +106,10 @@ def user_home(request, user_id):
     
     followers = user.userprofile.followers.all()
     following = user.userprofile.userprofile_set.all()
+
+	##Bob Edit 8:13pm
+	suggestions = Userprofile.objects.all()
+
     if logged_user == user:   
         same_user = True
         for f in following:
@@ -126,7 +130,8 @@ def user_home(request, user_id):
         'same_user': same_user,
         'followers': followers,
         'following': following,
-        'am_following': am_following
+        'am_following': am_following,
+		 'suggestions': suggestions
     }
     context.update(csrf(request))
     return render_to_response('user_home.html', context)

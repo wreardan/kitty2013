@@ -29,6 +29,19 @@
                     </tr>
                 {% endfor %}
                 </table>
+                
+                <br/>
+                
+                <h3>Suggestions</h3>
+                <table class="table">
+                {% for person in suggestions %}
+                	<tr>
+                		<td>
+                		<a href="/user/{{person.user.id}}">{{person.user.username}}</a>
+                		<td>
+                	</tr>
+                {% endfor %}
+                </table>
             </div>
             <div class="span10">            
                 {% if same_user %}
