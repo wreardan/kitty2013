@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 {% block title %}DasProject2 {{ meow.user.username }} {% endblock %}
 {% block css %}
-    <link href="/static/css/bootstrap-fileupload.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-fileupload.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -10,7 +10,6 @@
       }
     </style>
 {% endblock %}
-
 {% block js_first %}
 {% endblock %}
 
@@ -18,40 +17,23 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="span2">
-                <h3>Friends</h3>
-                <table class="table">
-                {% for follower in following %}
-                    <tr>
-                        <td>
-                        <a href="/user/{{follower.user.id}}">{{follower.user.username}}</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </table>
-                
-                <br/>
-                
-                <h3>Suggestions</h3>
-                <table class="table">
-                {% for person in suggestions %}
-                	<tr>
-                		<td>
-                		<a href="/user/{{person.user.id}}">{{person.user.username}}</a>
-                		<td>
-                	</tr>
-                {% endfor %}
-                </table>
-            </div>
-            <div class="span10">            
+            <div class="span10">
                 {% if same_user %}
                 <form action="/meow/add" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
                     <div class="fileupload fileupload-new" data-provides="fileupload">
-                      <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" /></div>
-                      <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                      <div class="hide fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                          <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+                      </div>
+                      <div class="hide fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
+
+                      </div>
                       <div>
-                        <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="new_meow_image" /></span>
+                        <span class="btn btn-file">
+                            <span class="fileupload-new">Select image</span>
+                            <span class="fileupload-exists">Change</span>
+                            <input type="file" name="new_meow_image" />
+                        </span>
                         <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                       </div>
                     </div>
@@ -97,6 +79,33 @@
                 </div>
                 </table>
             </div>
+
+            <div class="span2">
+                <h4>Friends</h4>
+                <table class="table">
+                {% for follower in following %}
+                    <tr>
+                        <td>
+                        <a href="/user/{{follower.user.id}}">{{follower.user.username}}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+
+                <br/>
+
+                <h4>Suggested Friends</h4>
+                <table class="table">
+                {% for person in suggestions %}
+                	<tr>
+                		<td>
+                		<a href="/user/{{person.user.id}}">{{person.user.username}}</a>
+                		<td>
+                	</tr>
+                {% endfor %}
+                </table>
+            </div>
+
         </div>
     </div>
 {% endblock %}
