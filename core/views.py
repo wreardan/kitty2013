@@ -107,6 +107,7 @@ def user_home(request, user_id):
     followers = user.userprofile.followers.all()
     following = user.userprofile.userprofile_set.all()
 
+    #Bob Edit 8:13pm
     suggestions = UserProfile.objects.all()
 
     if logged_user == user:   
