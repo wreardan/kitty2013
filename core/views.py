@@ -63,6 +63,20 @@ def add_meow(request):
     raise Http404
 
 @login_required
+def user_upload(request, user_id):
+    if request.method == "GET":
+        context = {
+            "user" : {"id" : user_id},
+        }
+        context.update(csrf(request))
+        return render_to_response('upload.html', context)
+    if request.method == "POST":
+        #TODO: post image
+        return redirect('/upload/user/' + user_id)
+    raise Http404
+
+
+@login_required
 def remove_meow(request, meow_id):
     if request.method == "POST":
         user = request.user
@@ -139,7 +153,7 @@ def user_home(request, user_id):
         'followers': followers,
         'following': following,
         'am_following': am_following,
-		 'suggestions': suggestions
+		'suggestions': suggestions
     }
     context.update(csrf(request))
     return render_to_response('user_home.html', context)

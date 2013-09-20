@@ -21,6 +21,8 @@ urlpatterns = patterns('',
     url(r'^accounts/register', register),
 
     url(r'^user/(\d+)', user_home),
+    url(r'^upload/user/(\d+)', user_upload),
+    #url(r'^upload/(\d+)', user_upload),
 
     url(r'^meow/add', add_meow),
     url(r'^meow/like/(\d+)', like_meow),
