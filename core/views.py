@@ -130,6 +130,11 @@ def user_home(request, user_id):
 
     meows.extend(user.meow_set.all())
     meows.sort(key=lambda m: m.ts, reverse=True)
+
+    for meow in meows:
+        likes = user.userprofile.likes.all()
+        if meow in likes:
+            meow.liked = True
     
     context = {
         'meows': meows,
