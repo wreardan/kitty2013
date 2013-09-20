@@ -2,6 +2,13 @@
 {% block title %}DasProject2 {{ meow.user.username }} {% endblock %}
 {% block css %}
     <link href="/static/css/bootstrap-fileupload.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+    </style>
 {% endblock %}
 
 {% block js_first %}
@@ -62,6 +69,7 @@
                                 </h4>
                                 <p>{{meow.text}}</p>
                                 <p>{{meow.ts}} </p>
+                                <img src="{{meow.image_url}}" />
                             </div>
                             </td>
                             <td>
