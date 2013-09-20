@@ -18,7 +18,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="span4">
+            <div class="span2">
                 <h3>Friends</h3>
                 <table class="table">
                 {% for follower in following %}
@@ -30,7 +30,7 @@
                 {% endfor %}
                 </table>
             </div>
-            <div class="span8">            
+            <div class="span10">            
                 {% if same_user %}
                 <form action="/meow/add" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
