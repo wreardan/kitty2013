@@ -80,7 +80,7 @@ def subscribe_user(request, user_id):
         user = get_object_or_404(User, pk=user_id)
         user_prof = user.userprofile
         user_prof.followers.add(logged_user.userprofile)
-        logged_user.followers.add(user_prof)
+        logged_user.userprofile.followers.add(user_prof)
         user_prof.save()
         return redirect('/user/%s' % user.id)   
     raise Http404
