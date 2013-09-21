@@ -22,7 +22,7 @@ def login(request):
                                             password=request.POST.get('password'))
         if user is not None and user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect("/user/%s" % user.id)
+            return HttpResponseRedirect("/user/%d" % user.id)
     context = {}
     context.update(csrf(request))
     return render_to_response( 'registration/login.html',  context)
@@ -36,10 +36,9 @@ def register(request):
            user_prof = UserProfile(user=new_user)
            user_prof.save()
            new_user = authenticate(username=request.POST['username'],
-                                    password=request.POST['password'])
-           login(request, new_user)
-           return HttpResponseRedirect("/dashboard/")
-           return HttpResponseRedirect('/accounts/login')
+                                    password=request.POST['password1'])
+           auth.login(request, new_user)
+           return HttpResponseRedirect('/user/%d' % new_user.id)
    else:
        form = UserCreationForm()
            
