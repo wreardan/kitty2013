@@ -20,8 +20,8 @@ urlpatterns = patterns('',
     url(r'^accounts/logout', logout, {'next_page': '/'}),
     url(r'^accounts/register', register),
 
-    url(r'^user/', login),
-    url(r'^user/(\d+)', user_home),
+    url(r'^user/(\d+)$', user_home),
+    url(r'^user/$', login),
     url(r'^upload/user/(\d+)', user_upload),
     #url(r'^upload/(\d+)', user_upload),
 
