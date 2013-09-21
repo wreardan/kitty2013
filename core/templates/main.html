@@ -35,8 +35,10 @@
                     <a class="brand" href="/user/{{ request.user.id }}">DasProject2</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
+                            {% if request.user %}
                             <li class="active"><a href="/user/{{ request.user.id }}">Home</a></li>
                             <li class="active"><a href="/upload/user/{{ request.user.id }}">Image Upload</a></li>
+                            {% endif %}
                             <li class="active"><a href="mailto:reardan@wisc.edu">Contact</a></li>
                         </ul>
                         <ul class="nav pull-right">
