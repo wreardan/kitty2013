@@ -4,6 +4,7 @@
     <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<<<<<<< HEAD
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
     
@@ -15,12 +16,22 @@
 	<link rel="stylesheet" href="/static/css/jquery.Jcrop.css" type="text/css" />
 	<link href="/static/css/lightbox.css" rel="stylesheet" />
 	
+=======
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/css/jquery.Jcrop.css" type="text/css" />
+<!-- JS files near bottom of page -->
+    
+>>>>>>> 8b08698253b2f67fa817738dd4486385fa91fa97
     <style type="text/css">
         body {
             padding-top: 50px;
         }
         .content {
             padding: 40px 15px;
+        }
+        .hide {
+            display: none;
         }
     </style>
     {% block css %}{% endblock %}
@@ -30,11 +41,19 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                     <a class="brand" href="/user/{{ request.user.id }}">DasProject2</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
+                            {% if request.user %}
                             <li class="active"><a href="/user/{{ request.user.id }}">Home</a></li>
-                            <li></li>
+                            <li class="active"><a href="/upload/user/{{ request.user.id }}">Image Upload</a></li>
+                            {% endif %}
+                            <li class="active"><a href="mailto:reardan@wisc.edu">Contact</a></li>
                         </ul>
                         <ul class="nav pull-right">
 {% if request.user.is_authenticated %}
@@ -53,9 +72,15 @@
             {% block content %} {% endblock %}
         </div>
         <script src="/static/js/jquery.min.js"></script>
+<<<<<<< HEAD
         <script src="/static/js/bootstrap.min.js"></script>
         <script src="/static/js/bootstrap-fileupload.min.js"></script>
         
+=======
+        <script src="/static/js/jquery.Jcrop.js"></script>
+        <script src="/static/js/bootstrap.js"></script>
+        <script src="/static/js/bootstrap-fileupload.js"></script>
+>>>>>>> 8b08698253b2f67fa817738dd4486385fa91fa97
         {% block js_last %} {% endblock %}
     </body>
 </html>

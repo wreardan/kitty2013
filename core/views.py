@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
@@ -21,7 +22,7 @@ def login(request):
                                             password=request.POST.get('password'))
         if user is not None and user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect("/user/%s" % user.id)
+            return HttpResponseRedirect("/user/%d" % user.id)
     context = {}
     context.update(csrf(request))
     return render_to_response( 'registration/login.html',  context)
@@ -34,7 +35,10 @@ def register(request):
            new_user.save()
            user_prof = UserProfile(user=new_user)
            user_prof.save()
-           return HttpResponseRedirect('/accounts/login')
+           new_user = authenticate(username=request.POST['username'],
+                                    password=request.POST['password1'])
+           auth.login(request, new_user)
+           return HttpResponseRedirect('/user/%d' % new_user.id)
    else:
        form = UserCreationForm()
            
@@ -62,6 +66,7 @@ def add_meow(request):
         return redirect('/user/%s' % user.id)
     raise Http404
 
+
 @login_required
 def remove_meow(request, meow_id):
     if request.method == "POST":
@@ -71,6 +76,15 @@ def remove_meow(request, meow_id):
             raise Http404
         meow.delete()
         return redirect('/user/%s' % user.id)
+    raise Http404
+
+@login_required
+def like_meow(request, meow_id):
+    if request.method == "POST":
+        meow = get_object_or_404(Meow, pk=meow_id)
+        userprof = request.user.userprofile
+        userprof.likes.add(meow)
+        return redirect('/user/%s' % request.user.id)
     raise Http404
 
 @login_required
@@ -120,6 +134,11 @@ def user_home(request, user_id):
 
     meows.extend(user.meow_set.all())
     meows.sort(key=lambda m: m.ts, reverse=True)
+
+    for meow in meows:
+        likes = user.userprofile.likes.all()
+        if meow in likes:
+            meow.liked = True
     
     context = {
         'meows': meows,
@@ -130,7 +149,21 @@ def user_home(request, user_id):
         'followers': followers,
         'following': following,
         'am_following': am_following,
-		 'suggestions': suggestions
+		'suggestions': suggestions
     }
     context.update(csrf(request))
     return render_to_response('user_home.html', context)
+
+@login_required
+def user_upload(request, user_id):
+    if request.method == "GET":
+        context = {
+            'user_id': user_id,
+            'request': {'user': {'id' : user_id}},
+        }
+        context.update(csrf(request))
+        return render_to_response('upload.html', context)
+    if request.method == "POST":
+        #TODO: post image
+        return redirect('/upload/user/' + user_id)
+    raise Http404

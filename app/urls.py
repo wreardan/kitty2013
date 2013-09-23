@@ -20,9 +20,13 @@ urlpatterns = patterns('',
     url(r'^accounts/logout', logout, {'next_page': '/'}),
     url(r'^accounts/register', register),
 
-    url(r'^user/(\d+)', user_home),
+    url(r'^user/(\d+)$', user_home),
+    url(r'^user/$', login),
+    url(r'^upload/user/(\d+)', user_upload),
+    #url(r'^upload/(\d+)', user_upload),
 
     url(r'^meow/add', add_meow),
+    url(r'^meow/like/(\d+)', like_meow),
     url(r'^meow/remove/(\d+)', remove_meow),
     url(r'^user/subscribe/(\d+)', subscribe_user),
     url(r'^user/unsubscribe/(\d+)', unsubscribe_user)
