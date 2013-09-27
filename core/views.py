@@ -17,10 +17,6 @@ bucket.set_acl('public-read')
 
 # Download the twilio-python library from http://twilio.com/docs/libraries
 from twilio.rest import TwilioRestClient
-# Find these values at https://twilio.com/user/account
-account_sid = "ACb65bbe159b7b180894c412cd4d47d231"
-auth_token = "19d4f44997dbabfb6b15add63408682f"
-client = TwilioRestClient(account_sid, auth_token)
 
 def login(request):
     if request.method == 'POST':
@@ -69,11 +65,23 @@ def add_meow(request):
         new_meow_text = request.POST.get('new_meow')
         new_meow = Meow(text=new_meow_text,
                         user=user, image_url=url)
+
         new_meow.save()
+
+        # Find these values at https://twilio.com/user/account
+        tagged_username = request.POST.get('tag')
+        tagged_user = User.objects.filter(username=tagged_username)[0]
+        if(tagged_user):
+            cell = tagged_user.userprofile.cell_phone
+
+            account_sid = "ACb65bbe159b7b180894c412cd4d47d231"
+            auth_token = "19d4f44997dbabfb6b15add63408682f"
+            client = TwilioRestClient(account_sid, auth_token)
+            message = client.messages.create(to="+%d" % cell, from_="+16083716550",
+                    body="Hey %s, %s just tagged you in a picture" % (tagged_user.username, user.username))
+
         return redirect('/user/%s' % user.id)
 
-        message = client.messages.create(to="+19522617760", from_="+16083716550",
-                 body="Hello there!")
     raise Http404
 
 
