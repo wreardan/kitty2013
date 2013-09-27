@@ -15,6 +15,12 @@ s3 = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_ACCESS_SECRET)
 bucket = s3.create_bucket(settings.AWS_BUCKET_NAME)
 bucket.set_acl('public-read')
 
+# Download the twilio-python library from http://twilio.com/docs/libraries
+from twilio.rest import TwilioRestClient
+# Find these values at https://twilio.com/user/account
+account_sid = "ACb65bbe159b7b180894c412cd4d47d231"
+auth_token = "19d4f44997dbabfb6b15add63408682f"
+client = TwilioRestClient(account_sid, auth_token)
 
 def login(request):
     if request.method == 'POST':
@@ -64,6 +70,9 @@ def add_meow(request):
                         user=user, image_url=url)
         new_meow.save()
         return redirect('/user/%s' % user.id)
+
+        message = client.messages.create(to="+19522617760", from_="+16083716550",
+                 body="Hello there!")
     raise Http404
 
 
