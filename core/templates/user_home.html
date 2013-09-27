@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-{% block title %}DasProject2 {{ meow.user.username }} {% endblock %}
+{% block title %}Liotwi {{ meow.user.username }} {% endblock %}
 {% block css %}
     <link href="/static/css/bootstrap-fileupload.css" rel="stylesheet">
     <style type="text/css">
@@ -22,11 +22,11 @@
                 {% if same_user %}
                 {% elif am_following %}
                         <form action="/user/unsubscribe/{{user_id}}" method="POST">{% csrf_token %}
-                        <input type="submit" value="Friend Me">
+                        <input type="submit" value="Un-Friend Me">
                     </form>
                 {% else %}
                     <form action="/user/subscribe/{{user_id}}" method="POST">{% csrf_token %}
-                        <input type="submit" value="Un-Friend Me">
+                        <input type="submit" value="Friend Me">
                     </form>
                 {% endif %}
 
@@ -36,7 +36,7 @@
                     <div class="span3">
 
                         <div class="media-body">
-                        	<a href = "{{meow.image_url}}" data-lightbox="{{meow.image_url}}" title="{{meow.text}}"><img src="{{meow.image_url}}"</img></a>
+                        	<a href = "{{meow.image_url}}" data-lightbox="{{meow.image_url}}" title="{{meow.text}}"><img src="{{meow.image_url}}"></img></a>
                             </a>
 
                             <div class="caption">{{meow.text}}
