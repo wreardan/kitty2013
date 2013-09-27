@@ -19,8 +19,7 @@ bucket.set_acl('public-read')
 def login(request):
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST.get('username'),
-                                            password=request.POST.get('password')
-											cell_phone=request.POST.get('phonenumber'))
+                                            password=request.POST.get('password'))
         if user is not None and user.is_active:
             auth.login(request, user)
             return HttpResponseRedirect("/user/%d" % user.id)
@@ -37,7 +36,8 @@ def register(request):
            user_prof = UserProfile(user=new_user)
            user_prof.save()
            new_user = authenticate(username=request.POST['username'],
-                                    password=request.POST['password1'])
+                                    password=request.POST['password1'],
+									cell_phone=request.POST['phonenumber'])
            auth.login(request, new_user)
            return HttpResponseRedirect('/user/%d' % new_user.id)
    else:
