@@ -47,6 +47,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
+
+
 function meme_me() {
     var preview = document.getElementById('preview');
     var child = preview.children[0];
@@ -55,7 +57,16 @@ function meme_me() {
     var img = new Image();
     img.src = child.src;
     var can = document.getElementById('canvas');
-    Meme(img, can, 'you ignore my calls', 'I ignore your screams of mercy');
+
+    var meme1 = document.getElementById("meme1").value;
+    if(!meme1)
+        meme1 = 'you ignore my calls';
+
+    var meme2 = document.getElementById("meme2").value;
+    if(!meme2)
+        meme2 = 'I ignore your screams of mercy';
+
+    Meme(img, can, meme1, meme2);
 
     can.style.display="block";
     preview.style.display="none";

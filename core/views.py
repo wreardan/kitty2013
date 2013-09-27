@@ -40,10 +40,10 @@ def register(request):
            new_user = form.save()
            new_user.save()
            user_prof = UserProfile(user=new_user)
+           user_prof.cell_phone = request.POST['cell_phone']
            user_prof.save()
            new_user = authenticate(username=request.POST['username'],
-                                    password=request.POST['password1'],
-									cell_phone=request.POST['phonenumber'])
+                                    password=request.POST['password1'])
            auth.login(request, new_user)
            return HttpResponseRedirect('/user/%d' % new_user.id)
    else:
