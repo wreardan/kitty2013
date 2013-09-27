@@ -40,6 +40,14 @@
                 <span class="help-inline">{{ form.password2.errors }}</span>
             </div>
         </div>
+		<div class="control-group {% if form.phonenumber.errors %}error{% endif %}">
+            <label class="control-label">{{ form.phonenumber.label_tag }}</label>
+            <div class="controls">
+                {{ form.phonenumber }}
+                <p class="help-block">{{ form.phonenumber.help_text}}</p>
+                <span class="help-inline">{{ form.phonenumber.errors }}</span>
+            </div>
+        </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Create the account</button>
             <a class="btn" href="/">Cancel</a>

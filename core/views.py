@@ -25,7 +25,8 @@ client = TwilioRestClient(account_sid, auth_token)
 def login(request):
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST.get('username'),
-                                            password=request.POST.get('password'))
+                                            password=request.POST.get('password')
+											cell_phone=request.POST.get('phonenumber'))
         if user is not None and user.is_active:
             auth.login(request, user)
             return HttpResponseRedirect("/user/%d" % user.id)
