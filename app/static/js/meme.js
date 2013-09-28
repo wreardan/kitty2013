@@ -49,14 +49,45 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 
+function fileSelect(evt) {
+    var files = evt.target.files;
+    var selectedFile = evt.target.files[0];
+    var p = document.getElementById('placeholder');
+    var c = document.getElementById('canvas');
+    var ctx = c.getContext("2d");
+
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+        var c = document.getElementById('canvas');
+        var img = new Image();
+        img.src = event.target.result;
+
+        c.width = img.width;    c.height = img.height;
+        var ctx = c.getContext("2d")
+        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, img.width, img.height);
+    };
+
+    reader.readAsDataURL(selectedFile);
+
+    var result = '';
+    var file;
+    for (var i = 0; file = files[i]; i++) {
+        result += '<li>' + file.name + ' ' + file.size + ' bytes</li>';
+    }
+    document.getElementById('filesInfo').innerHTML = '<ul>' + result + '</ul>';
+
+    c.style.display="block";
+    p.style.display="none";
+}
+
+document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
+
 function meme_me() {
-    var preview = document.getElementById('preview');
-    var child = preview.children[0];
-    if(!child)
-        return;
-    var img = new Image();
-    img.src = child.src;
     var can = document.getElementById('canvas');
+    if(!can)
+        return;
+    var url = can.toDataURL();
 
     var meme1 = document.getElementById("meme1").value;
     if(!meme1)
@@ -66,10 +97,9 @@ function meme_me() {
     if(!meme2)
         meme2 = 'I ignore your screams of mercy';
 
-    Meme(img, can, meme1, meme2);
+    Meme(url, can, meme1, meme2);
 
     can.style.display="block";
-    preview.style.display="none";
 }
 
 window.Meme = function(image, canvas, top, bottom) {

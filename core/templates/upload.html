@@ -7,7 +7,6 @@
         background-color: #f5f5f5;
       }
     </style>
-    <script src="/static/js/meme.js"></script>
 {% endblock %}
 {% block content %}
     <div class="container">
@@ -16,20 +15,27 @@
 
             <form action="/meow/add" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
-                <div class="fileupload fileupload-new" data-provides="fileupload">
-                    <div class="fileupload-new thumbnail span9">
+                <div class="" data-provides="">
+                    <div id="placeholder" class="thumbnail span9">
                         <img src="http://www.placehold.it/300x300/EFEFEF/AAAAAA&text=preview" />
                     </div>
-                    <div id="preview" class="fileupload-preview fileupload-exists thumbnail span9">
+                    <div id="preview" class="hide thumbnail span9">
                     </div>
                     <canvas id="canvas" class="span9" style="display: none"></canvas>
 
                     <div class="span2">
+                        <div class="row">
+                            <label for="filesToUpload">Select Files to Upload</label><br />
+                            <input type="file" name="filesToUpload[]" id="filesToUpload" multiple="multiple" />
+                            <output id="filesInfo"></output>
+                        </div>
+                        <!--
                         <span class="btn btn-file">
                             <span class="fileupload-new">Select image</span>
                             <span class="fileupload-exists">Load new image</span>
                             <input class="btn btn-primary btn-medium" type="file" name="new_meow_image" />
                         </span>
+                        -->
                         <label for="tag">Post Text:</label>
                         <input type="text" class="span3" name="new_meow" id="new_meow" rows="1" cols="60" maxlength="60">
 
@@ -52,4 +58,5 @@
 
         </div>
     </div>
+    <script src="/static/js/meme.js"></script>
 {% endblock %}
