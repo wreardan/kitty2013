@@ -48,7 +48,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
-
+/*
 function fileSelect(evt) {
     var files = evt.target.files;
     var selectedFile = evt.target.files[0];
@@ -58,6 +58,7 @@ function fileSelect(evt) {
 
     var reader = new FileReader();
 
+    //once data is read, load data into canvas
     reader.onload = function(event) {
         var c = document.getElementById('canvas');
         var img = new Image();
@@ -83,11 +84,26 @@ function fileSelect(evt) {
 
 document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
 
+function post_image(evt) {
+    //transform canvas into img tag
+}
+
+document.getElementById('image_post_button').addEventListener('click', fileSelect, false);
+*/
+
+
 function meme_me() {
-    var can = document.getElementById('canvas');
-    if(!can)
+    //get img tag
+    var preview = document.getElementById("img_preview");
+    var img = preview.childNodes[0];
+    if(!img)
         return;
-    var url = can.toDataURL();
+
+    //create virtual canvas
+    //var canvas = document.createElement('canvas');
+    var canvas = document.getElementById("img_canvas");
+    if(!canvas)
+        return;
 
     var meme1 = document.getElementById("meme1").value;
     if(!meme1)
@@ -97,9 +113,25 @@ function meme_me() {
     if(!meme2)
         meme2 = 'I ignore your screams of mercy';
 
-    Meme(url, can, meme1, meme2);
+    var image = new Image();
+    image.src = img.src;
+    Meme(image, canvas, meme1, meme2);
 
-    can.style.display="block";
+    preview.removeChild(img);
+
+    //img.remove();
+    /*
+    var new_image = new Image();
+    new_image.src = canvas.toDataURL("image/png");
+    preview.appendChild(new_image);
+*/
+
+    var new_image = new Image();
+    setTimeout(function() {
+        var url = canvas.toDataURL("image/png");
+        new_image.src = url;
+        preview.appendChild(new_image);
+    }, 100);
 }
 
 window.Meme = function(image, canvas, top, bottom) {
