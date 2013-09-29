@@ -131,6 +131,8 @@ function meme_me() {
         var url = canvas.toDataURL("image/png");
         new_image.src = url;
         preview.appendChild(new_image);
+        var new_meow_image = document.getElementById("new_meow_image");
+        new_meow_image.src = url;
     }, 100);
 }
 
